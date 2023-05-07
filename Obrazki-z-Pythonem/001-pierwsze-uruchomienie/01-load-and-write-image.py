@@ -1,35 +1,75 @@
-# import the necessary packages
 import argparse
+from dataclasses import dataclass
+
 import cv2
 
 
-def get_image():
-    # construct the argument parser and parse the arguments
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-i", "--image", required=True, help="path to the image to load")
-    args = vars(ap.parse_args())
-    image = cv2.imread(args["image"])
-    return image
+@dataclass
+class ImageInformation:
+    """
+    Class to handle basic image operations
+    """
 
-def display_info(image):
-    # display the image width, height, and the number of channels 
-    (height, width, channels) = image.shape[:3]
-    print(f"Width of the image: {width} pixels")
-    print(f"Height of the image: {height} pixels")
-    print(f"Number of channels: {channels}")
-    print(f"Type of image object: {type(image)}")
+    width: int
+    height: int
+    number_of_channels: int
 
-def show_image(image, time=500):
-    # show the image and wait given time or for a keypress
-    cv2.imshow("Image", image)
-    cv2.waitKey(time)
+    @staticmethod
+    def get_image() -> cv2:
+        """
+        Load the image with argument parser
+        """
+        ap = argparse.ArgumentParser()
+        ap.add_argument("-i", "--image", required=True, help="path to the image to load")
+        args = vars(ap.parse_args())
+        image = cv2.imread(args["image"])
+        return image
 
-def save_image(image):
-    # save the image
-    cv2.imwrite("my_new_image.jpg", image)
+    @staticmethod
+    def display_info(image) -> None:
+        """
+        Method to display the image width, height, and the number of channels
+        We are assuming the image is a Numpy array
+        """
+        print(f"Width of the image: {image.shape[1]} pixels")
+        print(f"Height of the image: {image.shape[0]} pixels")
+        print(f"Number of channels: {image.shape[2]}")
+
+    @staticmethod
+    def show_image(image, duration=500) -> None:
+        """
+        Method to show the image and wait given time or for a keypress
+        """
+        cv2.imshow("Image", image)
+        cv2.waitKey(duration)
+
+    @staticmethod
+    def save_image(image, new_name) -> None:
+        """
+        Method to save the image under the given name
+        """
+        cv2.imwrite(f"{new_name}.jpg", image)
+
 
 if __name__ == '__main__':
-    my_image = get_image()
-    display_info(my_image)
-    show_image(my_image)
-    save_image(my_image)
+    # read an image
+    my_image = ImageInformation.get_image()
+
+    # get its size and number of channels
+    my_image_properties = my_image.shape
+
+    # create new object of Image2D class
+    my_image_object = ImageInformation(
+        width=my_image_properties[1],
+        height=my_image_properties[0],
+        number_of_channels=my_image_properties[2]
+    )
+
+    # display information about the image
+    ImageInformation.display_info(my_image)
+
+    # show the image
+    ImageInformation.show_image(my_image, duration=2000)
+
+    # create a copy of the image
+    ImageInformation.save_image(my_image, new_name="copy_of_my_image")
