@@ -7,7 +7,7 @@ import cv2
 @dataclass
 class ImageInformation:
     """
-    Class to handle basic image operations
+    Class to store basic image information
     """
 
     width: int
@@ -72,4 +72,4 @@ if __name__ == '__main__':
     ImageInformation.show_image(my_image, duration=2000)
 
     # create a copy of the image
-    ImageInformation.save_image(my_image, new_name="copy_of_my_image")
+    ImageInformation.save_image(my_image, new_name="copy_of_my_image_class_version")
