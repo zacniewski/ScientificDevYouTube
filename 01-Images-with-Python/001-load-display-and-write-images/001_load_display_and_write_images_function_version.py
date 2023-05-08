@@ -8,7 +8,7 @@ def get_image() -> cv2:
 
     Parameters
     ----------
-    None
+    No parameters
 
 
     Returns
