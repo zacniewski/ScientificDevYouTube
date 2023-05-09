@@ -90,9 +90,6 @@ if __name__ == '__main__':
     # read an image
     my_image = get_image()
 
-    # get its size and number of channels
-    my_image_properties = my_image.shape
-
     # display information about the image
     display_info(my_image)
 
