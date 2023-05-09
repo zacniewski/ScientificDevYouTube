@@ -24,7 +24,7 @@
     python3 -m venv my_env
     source my_env/bin/activate
     ```
-    > Creating virtualenvs is described in [official documentation](https://docs.python.org/3/library/venv.html). 
+    > Working with virtualenvs on different operating systems is described in [official documentation](https://docs.python.org/3/library/venv.html). 
 
 3. Install required packages:
   - from `requirements` file with given versions:
